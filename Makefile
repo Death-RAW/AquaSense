@@ -1,5 +1,5 @@
 # name of your application
-APPLICATION = W4
+APPLICATION = Sensing_Layer
 
 # If no BOARD is found in the environment, use this default:
 BOARD ?=iotlab-m3

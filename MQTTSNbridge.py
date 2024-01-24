@@ -24,7 +24,7 @@ class Callback:
 path = "/home/root/IoT-Mini-Project-1/certs/"
 
 # configure the access with the AWS MQTT broker
-MQTTClient.configureEndpoint("a1xyjl41ufshwl-ats.iot.us-east-1.amazonaws.compwd", 8883)
+MQTTClient.configureEndpoint("a1xyjl41ufshwl-ats.iot.us-east-1.amazonaws.com", 8883)
 MQTTClient.configureCredentials(path+"AmazonRootCA1.pem",
                                 path+"fbb18bb1ec80a8186de8ebaaeb1b0ebcb6cd6d078741bb5f69828223417c95a6-private.pem.key",
                                 path+"fbb18bb1ec80a8186de8ebaaeb1b0ebcb6cd6d078741bb5f69828223417c95a6-certificate.pem.crt")
