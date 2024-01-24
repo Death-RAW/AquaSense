@@ -1,0 +1,20 @@
+iotlab-experiment submit -n riot_mqtt -d 180 -l 2,archi=m3:at86rf231+site=grenoble -l 1,archi=a8:at86rf231+site=grenoble
+
+BR
+make ETHOS_BAUDRATE=500000 DEFAULT_CHANNEL=10 BOARD=iotlab-m3 -C examples/gnrc_border_router clean all
+iotlab-node --flash examples/gnrc_border_router/bin/iotlab-m3/gnrc_border_router.elf -l grenoble,m3,100
+sudo ethos_uhcpd.py m3-100 tap0 2001:660:5307:3105::1/64
+
+Sensor
+
+source /opt/riot.source
+make ETHOS_BAUDRATE=500000 DEFAULT_CHANNEL=10 BOARD=iotlab-m3 -C examples/qqt clean all
+
+iotlab-node --flash examples/qqt/Sensing_Layer.elf -l grenoble,m3,101
+
+ssh root@node-a8-103
+vim config.conf
+
+~# ip -6 -o addr show eth0
+2001:660:5307:3000::67/64
+fe80::fadc:7aff:fe01:95f8/64
