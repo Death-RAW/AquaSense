@@ -21,7 +21,7 @@ class Callback:
 
 
 # path that indicates the certificates position
-path = "/home/root/IoT-Mini-Project-1/certs/"
+path = "/home/root/aws-iot-device-sdk-python/certs/"
 
 # configure the access with the AWS MQTT broker
 MQTTClient.configureEndpoint("a1xyjl41ufshwl-ats.iot.us-east-1.amazonaws.com", 8883)

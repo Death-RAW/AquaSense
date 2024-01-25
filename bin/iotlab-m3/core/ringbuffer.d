@@ -1,7 +1,7 @@
-/senslab/users/iot2023oulu90/RIOT/examples/qqt/bin/iotlab-m3/core/ringbuffer.o: \
- /senslab/users/iot2023oulu90/RIOT/core/ringbuffer.c \
- /senslab/users/iot2023oulu90/RIOT/examples/qqt/bin/iotlab-m3/riotbuild/riotbuild.h \
- /senslab/users/iot2023oulu90/RIOT/core/include/ringbuffer.h \
+/senslab/users/iot2023oulu100/RIOT/examples/MQTT/bin/iotlab-m3/core/ringbuffer.o: \
+ /senslab/users/iot2023oulu100/RIOT/core/ringbuffer.c \
+ /senslab/users/iot2023oulu100/RIOT/examples/MQTT/bin/iotlab-m3/riotbuild/riotbuild.h \
+ /senslab/users/iot2023oulu100/RIOT/core/include/ringbuffer.h \
  /opt/gcc-arm-none-eabi-9-2020-q2-update/arm-none-eabi/include/string.h \
  /opt/gcc-arm-none-eabi-9-2020-q2-update/arm-none-eabi/include/_ansi.h \
  /opt/gcc-arm-none-eabi-9-2020-q2-update/arm-none-eabi/include/newlib-nano/newlib.h \
@@ -16,9 +16,9 @@
  /opt/gcc-arm-none-eabi-9-2020-q2-update/arm-none-eabi/include/machine/_types.h \
  /opt/gcc-arm-none-eabi-9-2020-q2-update/arm-none-eabi/include/machine/_default_types.h \
  /opt/gcc-arm-none-eabi-9-2020-q2-update/arm-none-eabi/include/sys/lock.h \
- /senslab/users/iot2023oulu90/RIOT/core/include/assert.h \
- /senslab/users/iot2023oulu90/RIOT/core/include/panic.h \
- /senslab/users/iot2023oulu90/RIOT/core/include/kernel_defines.h \
+ /senslab/users/iot2023oulu100/RIOT/core/include/assert.h \
+ /senslab/users/iot2023oulu100/RIOT/core/include/panic.h \
+ /senslab/users/iot2023oulu100/RIOT/core/include/kernel_defines.h \
  /opt/gcc-arm-none-eabi-9-2020-q2-update/lib/gcc/arm-none-eabi/9.3.1/include/stdint.h \
  /opt/gcc-arm-none-eabi-9-2020-q2-update/arm-none-eabi/include/stdint.h \
  /opt/gcc-arm-none-eabi-9-2020-q2-update/arm-none-eabi/include/sys/_intsup.h \
@@ -26,9 +26,9 @@
  /opt/gcc-arm-none-eabi-9-2020-q2-update/arm-none-eabi/include/sys/cdefs.h \
  /opt/gcc-arm-none-eabi-9-2020-q2-update/arm-none-eabi/include/sys/string.h
 
-/senslab/users/iot2023oulu90/RIOT/examples/qqt/bin/iotlab-m3/riotbuild/riotbuild.h:
+/senslab/users/iot2023oulu100/RIOT/examples/MQTT/bin/iotlab-m3/riotbuild/riotbuild.h:
 
-/senslab/users/iot2023oulu90/RIOT/core/include/ringbuffer.h:
+/senslab/users/iot2023oulu100/RIOT/core/include/ringbuffer.h:
 
 /opt/gcc-arm-none-eabi-9-2020-q2-update/arm-none-eabi/include/string.h:
 
@@ -58,11 +58,11 @@
 
 /opt/gcc-arm-none-eabi-9-2020-q2-update/arm-none-eabi/include/sys/lock.h:
 
-/senslab/users/iot2023oulu90/RIOT/core/include/assert.h:
+/senslab/users/iot2023oulu100/RIOT/core/include/assert.h:
 
-/senslab/users/iot2023oulu90/RIOT/core/include/panic.h:
+/senslab/users/iot2023oulu100/RIOT/core/include/panic.h:
 
-/senslab/users/iot2023oulu90/RIOT/core/include/kernel_defines.h:
+/senslab/users/iot2023oulu100/RIOT/core/include/kernel_defines.h:
 
 /opt/gcc-arm-none-eabi-9-2020-q2-update/lib/gcc/arm-none-eabi/9.3.1/include/stdint.h:
 
