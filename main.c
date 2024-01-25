@@ -34,7 +34,7 @@
 #include "periph/wdt.h"
 
 #ifndef EMCUTE_ID
-#define EMCUTE_ID ("Aqua Sense")
+#define EMCUTE_ID ("Aqua_Sense")
 #endif
 
 #define EMCUTE_PORT (1884U)
