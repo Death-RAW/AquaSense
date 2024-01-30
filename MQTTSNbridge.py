@@ -1,6 +1,7 @@
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
 import MQTTSNclient
 import json
+import time
 
 jsonP = ''
 
@@ -17,6 +18,7 @@ class Callback:
       print(topicName, message)
       MQTTClient.publish(topicName, message, qos)
       #dynamoTable.put_item(Item=jsonP)
+      time.sleep(3)
       return True
 
 

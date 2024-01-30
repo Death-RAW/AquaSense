@@ -168,50 +168,6 @@ class Client:
     
     	logging.error('No SUBBACK message received')
     
-
-  """def subscribe(self, topic, qos=0):
-        'returns message Id and topic type,normal,short,predefined'
-        self.suback_flag=False
-        self.sub_topicid=""
-        self.sub_msgid=""
-        self.sub_rc=""
-        subscribe = MQTTSN.Subscribes()
-        subscribe.MsgId = self.__nextMsgid()
-        if type(topic) is str:
-            print("topic is string  ",topic)
-            subscribe.TopicName = topic
-            if len(topic) > 2:
-                subscribe.Flags.TopicIdType = MQTTSN.TOPIC_NORMAL
-                print("topic is Normal")
-            else:
-                subscribe.Flags.TopicIdType = MQTTSN.TOPIC_SHORTNAME
-                print("topic is shortname")
-        else:
-            subscribe.TopicId = topic # should be int
-            print("topic is int  ",topic)
-            subscribe.Flags.TopicIdType = MQTTSN.TOPIC_PREDEFINED
-            
-        subscribe.Flags.QoS = qos
-        self.sock.send(subscribe.pack())
-        self.__receiver.lookfor(MQTTSN.SUBACK)
-          
-        msg=self.waitfor(MQTTSN.SUBACK, subscribe.MsgId)
-        print("Error ?", msg)
-
-        if msg !=  None:
-          
-          if subscribe.MsgId == msg.MsgId:
-            print("Recevied subback for msgid",msg.MsgId)
-            print("TopicId", msg.TopicId)
-            return (msg.ReturnCode,msg.TopicId)
-          
-          else:
-            
-            raise SystemExit("Subscription Failed quitting")
-            return (None,None)
-        else:
-          return (None,None)"""
-          
             
   def unsubscribe(self, topics):
     unsubscribe = MQTTSN.Unsubscribes()
@@ -307,40 +263,7 @@ def publish(topic, payload, retained=False, port=1883, host="localhost"):
 
 
 if __name__ == "__main__":
-
-	"""
-  mclient = Client("myclientid", host="225.0.18.83", port=1883)
-  mclient.registerCallback(Callback())
-  mclient.start()
-
-  publish("long topic name", "qos -1 start", port=1884)
-
-  callback = Callback()
-
-  aclient = Client("myclientid", port=1884)
-  aclient.registerCallback(callback)
-
-  aclient.connect()
-  aclient.disconnect()
-
-  aclient.connect()
-  aclient.subscribe("k ", 2)
-  aclient.subscribe("jkjkjkjkj", 2)
-  aclient.publish("k ", "qos 0")
-  aclient.publish("k ", "qos 1", 1)
-  aclient.publish("jkjkjkjkj", "qos 2", 2)
-  topicid = aclient.register("jkjkjkjkj")
-  #time.sleep(1.0)
-  aclient.publish(topicid, "qos 2 - registered topic id", 2)
-  #time.sleep(1.0)
-  aclient.disconnect()
-  publish("long topic name", "qos -1 end", port=1884)
-
-  time.sleep(30)
-  mclient.stop()
-	"""
-
-
+ # TODO: check
 	aclient = Client("linh", port=1885)
 	aclient.registerCallback(Callback())
 	aclient.connect()
