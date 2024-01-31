@@ -92,6 +92,24 @@ static void *emcute_thread(void *arg) {
     return NULL; /* should never be reached */
 }
 
+static int con(char *addr, int port) {
+    sock_udp_ep_t gw = {.family = AF_INET6, .port = EMCUTE_PORT};
+    gw.port = port;
+
+    if (ipv6_addr_from_str((ipv6_addr_t *)&gw.addr.ipv6, addr) == NULL) {
+        printf("error parsing IPv6 address\n");
+        return 1;
+    }
+
+    if (emcute_con(&gw, true, NULL, NULL, 0, 0) != EMCUTE_OK) {
+        printf("error: unable to connect to [%s]:%i\n", addr, port);
+        
+        return 1;
+    }
+    printf("Successfully connected to gateway at [%s]:%i\n", addr, port);
+    return 0;
+}
+
 static int disconnect(void) {
     int res = emcute_discon();
     if (res == EMCUTE_NOGW) {
@@ -104,16 +122,6 @@ static int disconnect(void) {
     puts("Broker Disconnected");
     return 0;
 }
-//TODO : remove of current works
-// static void *thread_handler_temp(void *arg) {
-//     (void)arg;
-//     while (1) {
-//         lpsxxx_read_temp(&lpsxxx, &temp);
-//         ztimer_sleep(ZTIMER_MSEC, 3000);
-//     }
-
-//     return NULL;
-// }
 
 static void *thread_handler_temp(void *arg) {
     (void)arg;
@@ -146,6 +154,12 @@ static void *thread_handler_ambient_light(void *arg) {
     return NULL;
 }
 
+static void sensors_values(t_sensors *sensors) {
+    
+    sensors->temperature = (temp/100);
+    sensors->ambient_light = lux;
+}
+
 static int publisher(char *topic, char *data, int qos) {
     emcute_topic_t t;
     unsigned flags = EMCUTE_QOS_0;
@@ -164,7 +178,7 @@ static int publisher(char *topic, char *data, int qos) {
 
     t.name = topic;
     if (emcute_reg(&t) != EMCUTE_OK) {
-        puts("error: unable to obtain topic ID");
+        puts("error: unable to get topic ID");
         return 1;
     }
 
@@ -177,30 +191,10 @@ static int publisher(char *topic, char *data, int qos) {
     return 0;
 }
 
-static int con(char *addr, int port) {
-    sock_udp_ep_t gw = {.family = AF_INET6, .port = EMCUTE_PORT};
-    gw.port = port;
-
-    /* parse address */
-    if (ipv6_addr_from_str((ipv6_addr_t *)&gw.addr.ipv6, addr) == NULL) {
-        printf("error parsing IPv6 address\n");
-        return 1;
-    }
-
-    if (emcute_con(&gw, true, NULL, NULL, 0, 0) != EMCUTE_OK) {
-        printf("error: unable to connect to [%s]:%i\n", addr, port);
-        
-        return 1;
-    }
-    printf("Successfully connected to gateway at [%s]:%i\n", addr, port);
-    return 0;
-}
-
-static void sensors_values(t_sensors *sensors) {
-    
-    sensors->temperature = (temp/100);
-    sensors->ambient_light = lux;
-}
+static const shell_command_t shell_commands[] = {
+    {"Run", "Start Monitoring the aquarium", aqua_sense_start},
+    {NULL, NULL, NULL}
+};
 
 static int aqua_sense_start(int argc, char **argv) {
     if (argc < 4) {
@@ -209,23 +203,19 @@ static int aqua_sense_start(int argc, char **argv) {
     }
 
     t_sensors sensors;
-    // name of the topic
     char topic[32];
-    sprintf(topic,"sensor/station%d", atoi(argv[3])); // TODO : change the names of thia
-    // json that it will be published
     char json[256];
 
+    sprintf(topic,"sensor/aquarium%d", atoi(argv[3]));    
+
     while (1) {
-        // it tries to connect to the gateway
         if (con(argv[1], atoi(argv[2]))) {
             continue;
         }
         sensors_values(&sensors);
-        // fills the json document
-        sprintf(json, "{\"id\": \"%d\", \"datetime\": \"%s\", \"temperature\": "
+        sprintf(json, "{\"id\": \"%d\", \"temperature\": "
                       "\"%d\", \"ambient_light\": \"%d\"}",
-                atoi(argv[3]), "2024-01-24T15:30:00']", sensors.temperature, sensors.ambient_light);
-        // publish to the topic
+                atoi(argv[3]), sensors.temperature, sensors.ambient_light);
         publisher(topic, json, 0);
         disconnect();
         ztimer_sleep(ZTIMER_SEC, 10);
@@ -233,10 +223,6 @@ static int aqua_sense_start(int argc, char **argv) {
     return 0;
 }
 
-static const shell_command_t shell_commands[] = {
-    {"Run", "Start Monitoring the aquarium", aqua_sense_start},
-    {NULL, NULL, NULL}
-};
 
 int main(void) {
     lpsxxx_init(&lpsxxx, &lpsxxx_params[0]);

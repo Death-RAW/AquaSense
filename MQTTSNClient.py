@@ -18,7 +18,7 @@
 """
 
 import MQTTSN
-import MQTTSNinternal
+import MQTTSNInternal
 import socket, time, _thread, sys, struct, queue
 import logging
 
@@ -114,7 +114,7 @@ class Client:
 
 
   def startReceiver(self):
-    self.__receiver = MQTTSNinternal.Receivers(self.sock)
+    self.__receiver = MQTTSNInternal.Receivers(self.sock)
     if self.callback:
       id = _thread.start_new_thread(self.__receiver, (self.callback,self.topicmap,self.queue,))
 
@@ -150,7 +150,6 @@ class Client:
       self.__receiver.lookfor(MQTTSN.SUBACK)
       self.sock.send(subscribe.pack())
     msg = self.waitfor(MQTTSN.SUBACK, subscribe.MsgId)
-    print("trying")
     print(msg)
     
     try:
@@ -160,7 +159,6 @@ class Client:
       print("TopicId", msg.TopicId)
       return msg.ReturnCode, msg.TopicId
      else:
-      print("return None !!!!")
       return (None,None)
     	
     	
@@ -189,32 +187,6 @@ class Client:
     self.topicmap.register(msg.TopicId, topicName)
     return msg.TopicId
 
-
-  def publish(self, topic, payload, qos=0, retained=False):
-    if isinstance(payload, str) or isinstance(payload, bytes):
-      pass
-    else:
-      raise TypeError('Payload must be str or bytes.')
-    publish = MQTTSN.Publishes()
-    publish.Flags.QoS = qos
-    publish.Flags.Retain = retained
-    if isinstance(topic, str):
-      publish.Flags.TopicIdType = MQTTSN.TOPIC_SHORTNAME
-      publish.TopicName = topic
-    else:
-      publish.Flags.TopicIdType = MQTTSN.TOPIC_NORMAL
-      publish.TopicId = topic
-    if qos in [-1, 0]:
-      publish.MsgId = 0
-    else:
-      publish.MsgId = self.__nextMsgid()
-      #print("MsgId", publish.MsgId)
-      self.__receiver.outMsgs[publish.MsgId] = publish
-    publish.Data = payload
-    self.sock.send(publish.pack())
-    return publish.MsgId
-
-
   def disconnect(self):
     disconnect = MQTTSN.Disconnects()
     if self.__receiver:
@@ -225,9 +197,7 @@ class Client:
 
 
   def stopReceiver(self):
-    self.sock.close() # this will stop the receiver too
-##    assert self.__receiver.inMsgs == {}
-##    assert self.__receiver.outMsgs == {}
+    self.sock.close() 
     self.__receiver = None
 
   def receive(self):
@@ -254,27 +224,8 @@ def publish(topic, payload, retained=False, port=1883, host="localhost"):
     publish.Flags.TopicIdType = MQTTSN.TOPIC_NORMAL
     publish.TopicId = topic
   publish.MsgId = 0
-  #print("payload", payload)
   publish.Data = payload
   sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
   sock.sendto(publish.pack(), (host, port))
   sock.close()
   return
-
-
-if __name__ == "__main__":
- # TODO: check
-	aclient = Client("linh", port=1885)
-	aclient.registerCallback(Callback())
-	aclient.connect()
-
-	rc, topic1 = aclient.subscribe("topic1")
-	print("topic id for topic1 is", topic1)
-	rc, topic2 = aclient.subscribe("topic2")
-	print("topic id for topic2 is", topic2)
-	aclient.publish(topic1, "aaaa", qos=0)
-	aclient.publish(topic2, "bbbb", qos=0)
-	aclient.unsubscribe("topic1")
-	aclient.publish(topic2, "bbbb", qos=0)
-	aclient.publish(topic1, "aaaa", qos=0)
-	aclient.disconnect()

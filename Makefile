@@ -1,5 +1,5 @@
 # name of your application
-APPLICATION = Sensing_Layer
+APPLICATION = Aqua_Sense
 
 # If no BOARD is found in the environment, use this default:
 BOARD ?=iotlab-m3
