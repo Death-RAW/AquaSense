@@ -5,6 +5,8 @@ Aqua Sense is a IOT soulution to monitor the consditions of aquariums to ensure 
 
 Following resources has been used for this porject: 
 
+## DEMO VIDEO
+**[YOUTUBE Demo Video LINK ](https://youtu.be/fB81RPle3A0)**
 ## 🔗 Resources 
 [![Static Badge](https://img.shields.io/badge/RIOT-https%3A%2F%2Fgithub.com%2FRIOT-OS%2FRIO?link=https%3A%2F%2Fgithub.com%2FRIOT-OS%2FRIOT)](https://github.com/RIOT-OS/RIOT) 
 
@@ -24,6 +26,9 @@ Following resources has been used for this porject:
 
 ![alt text](https://github.com/Death-RAW/AquaSense/assets/61182412/2a0b5ac4-9c61-433f-9d78-2dbc7b1a8e3d)
 ## Installation : Preparation
+
+
+
 - [x]  Step 1 : Create a FIT-IoT lab account for accessing the testbed from [FIT Iot Testbed](https://www.iot-lab.info/testbed/signup)
 - [x]  Step 2 : SSH in to the FIT-IoT lab:  [Instructions here](https://www.iot-lab.info/docs/getting-started/ssh-access/)
 - [x]  Step 3 : clone https://github.com/RIOT-OS/RIOT.git the RIOT OS files with examples
@@ -209,6 +214,13 @@ root@node-a8-102:~#broker_mqtts config.conf
 20240131 032058.872 CWNAN0300I MQTT-S protocol starting, listening on port 1885
 20240131 032058.874 CWNAN0014I MQTT protocol starting, listening on port 1886
 20240131 032059.849 CWNAN0000I Client connected to udp port 1885 from Aqua_Sense (2001:660:5307:3101:a4da:e993:b3cc:9f60:1884)
+```
+- [x]  Go back to the sensor router and start reading the data. copy thr ipv6 addredd observed in step 7
+```bash
+username@site:~/RIOT$nc m3-101 2000
+>
+Run 2001:660:5307:3000::67 1885 1
+
 ```
 - [x]  Step 8: Now that our MQTT broker is working, we can use it to communicate with the AWS IOT Thigs. For this, we need the cerificates obtained from the AWS IOT things configuration. Lets jump in to the AWS clould server configuration before running the application. 
 
