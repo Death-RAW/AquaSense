@@ -6,13 +6,15 @@
  */
 
 /**
- * @ingroup     Sensing_Layer
+ * @ingroup     Aqua_Sense
  * @{
  *
  * @file
  * @brief      Sensor reading are observed to monitor the quatic conditions of a aquarium
  *
- * @author      Add names here
+ * @author      DEATH_RAW(iresh88gmail.com)
+ * @author      shazam007(dananjayakavindu@gmail.com)
+ * @author      NirahsaThennakoon(nmalinthi@gmail.com)
  * 
  *
  * @}
